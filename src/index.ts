@@ -6,6 +6,7 @@ export class HealthServer {
     server: Server;
 
     healthy = true;
+    reason: Object | string = undefined;
 
     constructor(options: IServerConfig) {
         this.options = Object.assign({
@@ -26,17 +27,22 @@ export class HealthServer {
         return this.server.listen(this.options.port);
     }
 
-    setHealthy(healthy = false): void {
+    setHealthy(healthy = false, reason?: Object | string): void {
         this.healthy = healthy;
+        this.reason = reason ? reason : undefined;
     }
 
-    unhealthy(error: Error | string) {
-        
+    unhealthy(error: Object | string) {
+        this.setHealthy(false, error);
+    }
+
+    isHealthy() {
+        return this.healthy;
     }
 
     private handler: RequestListener = (req: IncomingMessage, res: ServerResponse) => {
         res.writeHead(this.healthy ? 200 : 500, { 'Content-Type': 'application/json' });
-        res.write(JSON.stringify({success: this.healthy}));
+        res.write(JSON.stringify({success: this.healthy, error: this.reason}));
         res.end();
     }
 
