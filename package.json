@@ -1,6 +1,6 @@
 {
   "name": "@zehy/healthcheck",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Healthchecks for Docker",
   "main": "dist/index.js",
   "scripts": {
