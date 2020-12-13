@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "target": "es5",
+        "outDir": "dist/",
+        "declaration": true, 
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": false,
+        "esModuleInterop": true
+    },
+    "include": [
+        "src/"
+    ]
+}
