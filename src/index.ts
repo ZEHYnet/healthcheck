@@ -15,7 +15,10 @@ export class HealthServer {
             error: (err: string | Error) => { console.error(err); }
         }, options);
         this.server = createServer(this.handler);
-        this.server.on('error', (err: Error) => {
+        this.server.on('error', (err: IError) => {
+            if(err.code && err.code === 'EADDRINUSE') {
+                this.options.error('Port \'' + this.options.port + '\' is already in use.')
+            }
             this.options.error(err);
         });
         this.server.on('listening', () => {
@@ -52,4 +55,8 @@ interface IServerConfig {
     port?: number;
     log?: (msg: string) => void;
     error?: (error: string | Error) => void;
+}
+
+interface IError extends Error {
+    code?: string;
 }
