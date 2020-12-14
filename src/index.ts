@@ -22,7 +22,7 @@ export class HealthServer {
             this.options.error(err);
         });
         this.server.on('listening', () => {
-            this.options.log('HealthServer started on port ' + this.options.port);
+            this.options.log('HealthServer started on port ' + this.options.port + '.');
         });
     }
 
